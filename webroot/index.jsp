@@ -1,54 +1,13 @@
-<%@ page session="false" import="com.caucho.vfs.*, com.caucho.server.webapp.*" %>
-
-<%-- 
-  This is the default start page for the Resin server.
-
-  You can replace it as you wish, the documentation will
-  still be available as /resin-doc if it is installed.
-  --%>
-
-<%
-/**
- * See if the resin-doc webapp is installed
- */
-boolean hasResinDoc = false;
-boolean hasOrientation = false;
-
-ServletContext docApp = application.getContext("/resin-doc");  
-
-if (docApp != null) {
-  String rp = docApp.getRealPath("index.xtp");
-
-  if (rp != null && (new java.io.File(rp)).exists())
-    hasResinDoc = true;
-
-  if (hasResinDoc) {
-    rp = docApp.getRealPath("orientation.xtp");
-    if (rp != null && (new java.io.File(rp)).exists())
-      hasOrientation = true;
-  }
-}
-%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head><title>Resin? Default Home Page</title></head>
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
 <body>
-<h1 style="background: #ccddff">Resin? Default Home Page</h1>
-
-This is the default page for the Resin web server.
-
-<% if (hasResinDoc) { %>
-
-<p>Documentation is available at <a href="/resin-doc">/resin-doc</a>.
-
-<p>Administration is available at <a href="/resin-admin">/resin-admin</a>.
-
-<% } else { %>
-<p>
-The Resin documentation is normally found with the url  <i>
-<%= request.getScheme() %>://<%= request.getServerName() %>:<%= request.getServerPort() %>/resin-doc</i>, but it does not appear to be installed at that location.
-<% }  %>
+	Today is:
+	<%=new java.util.Date() %>
 </body>
-
 </html>
