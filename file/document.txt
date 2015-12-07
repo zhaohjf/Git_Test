@@ -5,3 +5,6 @@ http://blog.csdn.net/beijiguangyong/article/details/7439352
 
 Tomcat源码学习(17)-How Tomcat works（转）
 http://www.cnblogs.com/macula7/archive/2009/08/18/1960620.html
+
+MySQL教程：
+http://www.yiibai.com/mysql/mysql_administration.html
