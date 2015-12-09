@@ -1,0 +1,65 @@
+管理tomcat的时候遇到了以下问题：
+
+　　1.刚开始需要用户名密码，不知道用户名和密码是什么，但是输入什么都不正确。
+　　解决办法：
+ 　   自己在tomcat-users.xml中按格式添加用户 conf文件夹里面
+        默认是注释掉了的，这主要是考虑到服务器的安全，如果是本地测试，去掉以下这段注释，然后重启动服务器，再输入
+　　 <role rolename="tomcat"/>
+　　 <role rolename="role1"/>
+　　 <user username="tomcat" password="tomcat" roles="tomcat"/>
+　　 <user username="both" password="tomcat" roles="tomcat,role1"/>
+　　 <user username="role1" password="tomcat" roles="role1"/>
+　　用户和密码都一目了然了。
+
+　　2.进入manager界面之后，显示的是403 Access Denied。
+　　解决办法：
+　　在conf/tomcat-users.xml文件中看到这么一段话：
+　　NOTE:  By default, no user is included in the "manager-gui" role required
+　　 to operate the "/manager/html" web application.  If you wish to use this app,
+　　 you must define such a user - the username and password are arbitrary.
+　　也就是说，为了考虑安全，tomcat默认还是没有manager-gui的管理权限的，如果想要使用manager
+　　的话，需要自行加入管理权限（角色）。
+　　需要加一个这样的权限（角色）
+　　<role rolename="manager-gui"/>
+　　然后再加到需要的用户名中去
+　　<user username="tomcat" password="tomcat" roles="tomcat,manager-gui"/>
+　　这样OK了。
+
+
+<?xml version='1.0' encoding='utf-8'?>  
+<!--  
+  Licensed to the Apache Software Foundation (ASF) under one or more  
+  contributor license agreements.  See the NOTICE file distributed with  
+  this work for additional information regarding copyright ownership.  
+  The ASF licenses this file to You under the Apache License, Version 2.0  
+  (the "License"); you may not use this file except in compliance with  
+  the License.  You may obtain a copy of the License at    
+      http://www.apache.org/licenses/LICENSE-2.0   
+  Unless required by applicable law or agreed to in writing, software  
+  distributed under the License is distributed on an "AS IS" BASIS,  
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  
+  See the License for the specific language governing permissions and  
+  limitations under the License.  
+-->  
+<tomcat-users>  
+<!--  
+  NOTE:  By default, no user is included in the "manager-gui" role required  
+  to operate the "/manager/html" web application.  If you wish to use this app,  
+  you must define such a user - the username and password are arbitrary.  
+-->  
+<!--  
+  NOTE:  The sample user and role entries below are wrapped in a comment  
+  and thus are ignored when reading this file. Do not forget to remove  
+  <!.. ..> that surrounds them.  
+-->    
+ <!--  
+  <role rolename="tomcat"/>  
+  <role rolename="role1"/>  
+  <user username="tomcat" password="tomcat" roles="tomcat"/>  
+  <user username="both" password="tomcat" roles="tomcat,role1"/>  
+  <user username="role1" password="tomcat" roles="role1"/>  
+-->  
+    <role rolename="manager-gui"/>  
+    <role rolename="admin-gui"/>  
+    <user username="test" password="123456" roles="manager-gui,admin-gui"/>    
+</tomcat-users>  
