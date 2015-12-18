@@ -35,7 +35,7 @@ public class ServletProcessor1 {
     }
     Class myClass = null;
     try {
-      myClass = loader.loadClass(servletName);
+      myClass = loader.loadClass("ex02.pyrmont.PrimitiveServlet");
     }
     catch (ClassNotFoundException e) {
       System.out.println(e.toString());
